@@ -1,5 +1,7 @@
+import 'package:ecommerce/views/detailProduct/detailProduct.dart';
 import 'package:ecommerce/views/home/home.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       // theme: ,
-      home: const Home(),
+      home: const DetailProduct(),
     );
   }
 }
