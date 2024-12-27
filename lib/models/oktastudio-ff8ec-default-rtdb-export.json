@@ -1,0 +1,117 @@
+{
+  "cart": {
+    "1731073861696-420ui3vXhVYYVFlW8a1UI5TWcKf2": {
+      "brand": "New Balance",
+      "caption": "The 574 was built to be a reliable shoe that could do a lot of different things well rather than as a platform for revolutionary technology, or as a premium materials showcase. This unassuming, unpretentious versatility is exactly what launched the 574 into the ranks of all-time greats.",
+      "color": "Deep Olive Green",
+      "gender": "man",
+      "idCart": "1731073861696-420ui3vXhVYYVFlW8a1UI5TWcKf2",
+      "idProduct": 0,
+      "idUser": "420ui3vXhVYYVFlW8a1UI5TWcKf2",
+      "image": "https://firebasestorage.googleapis.com/v0/b/oktastudio-ff8ec.appspot.com/o/Product%2FNB1.png?alt=media&token=925f025b-1e2c-4a2b-8c7d-b057075ab164",
+      "jumlahBarang": 2,
+      "price": 2000000,
+      "priceAwal": 1000000,
+      "type": "515"
+    },
+    "1733968110600-KtoZ5w9mOUUYgpGXQXpuiwQFWfa2": {
+      "brand": "Nike",
+      "caption": "Genuine Leather is a natural material from animals and therefore differs from hide to hide. Whereas Synthetic Leather are treated and reacts differently during coloring and tanning process, to replicate these textures of a Genuine Leather.",
+      "color": "Siren Red",
+      "gender": "women",
+      "idCart": "1733968110600-KtoZ5w9mOUUYgpGXQXpuiwQFWfa2",
+      "idProduct": 1,
+      "idUser": "KtoZ5w9mOUUYgpGXQXpuiwQFWfa2",
+      "image": "https://firebasestorage.googleapis.com/v0/b/oktastudio-ff8ec.appspot.com/o/Product%2FAir_Force_1__1_-removebg-preview.png?alt=media&token=b557bc42-23a5-46da-b0e4-55f6c2352ae0&_gl=1*17iy9h8*_ga*MTM1ODg2NTM3LjE2OTkwNzc4NDE.*_ga_CW55HF8NVT*MTY5OTE2NTc4Mi41LjEuMTY5OTE3MDY0Ni4xLjAuMA..",
+      "jumlahBarang": 1,
+      "price": 2300000,
+      "priceAwal": 2300000,
+      "type": "Air Force 1 Shadow"
+    }
+  },
+  "product": [
+    {
+      "brand": "Nike",
+      "caption": "Genuine Leather is a natural material from animals and therefore differs from hide to hide. Whereas Synthetic Leather are treated and reacts differently during coloring and tanning process, to replicate these textures of a Genuine Leather.",
+      "color": "Siren Red",
+      "gender": "women",
+      "id": 1,
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/oktastudio-ff8ec.appspot.com/o/Product%2FAir_Force_1__1_-removebg-preview.png?alt=media&token=b557bc42-23a5-46da-b0e4-55f6c2352ae0&_gl=1*17iy9h8*_ga*MTM1ODg2NTM3LjE2OTkwNzc4NDE.*_ga_CW55HF8NVT*MTY5OTE2NTc4Mi41LjEuMTY5OTE3MDY0Ni4xLjAuMA..",
+        "https://firebasestorage.googleapis.com/v0/b/oktastudio-ff8ec.appspot.com/o/Product%2FAir_Force_1__2_-removebg-preview.png?alt=media&token=e16cc77e-7887-4ad8-8d6b-10cff78f7631&_gl=1*100try0*_ga*MTM1ODg2NTM3LjE2OTkwNzc4NDE.*_ga_CW55HF8NVT*MTY5OTE2NTc4Mi41LjEuMTY5OTE3MDY1Ni41Mi4wLjA.",
+        "https://firebasestorage.googleapis.com/v0/b/oktastudio-ff8ec.appspot.com/o/Product%2FAdidas3-removebg-preview.png?alt=media&token=9ef86538-975a-41c2-9e16-2e4b97bb3887",
+        "https://firebasestorage.googleapis.com/v0/b/oktastudio-ff8ec.appspot.com/o/Product%2FAir_Force_1__4_-removebg-preview.png?alt=media&token=877a4786-49d6-45cd-aba0-8a4d6c2965d6&_gl=1*1oc4b1v*_ga*MTM1ODg2NTM3LjE2OTkwNzc4NDE.*_ga_CW55HF8NVT*MTY5OTE2NTc4Mi41LjEuMTY5OTE3MDY3Ni4zMi4wLjA."
+      ],
+      "price": 2300000,
+      "type": "Air Force 1 Shadow"
+    },
+    {
+      "brand": "Adidas",
+      "caption": "A reimagined version of an iconic '80s runner, these adidas NMD shoes have a stretchy knit upper that wraps your foot in adaptive support. The original midsole plugs and heel pull are updated with a tactical, not technical, design. BOOST cushioning returns energy to your every step. An outline defines reflective 3-Stripes that glint when the sun hits.",
+      "color": "Grey",
+      "gender": "man",
+      "id": 2,
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/oktastudio-ff8ec.appspot.com/o/Product%2FNMD1%20(2).png?alt=media&token=cbfc64ea-c519-4df9-9cbc-c10e1a1f0e72&_gl=1*1f9zegk*_ga*MTM1ODg2NTM3LjE2OTkwNzc4NDE.*_ga_CW55HF8NVT*MTY5OTE2NTc4Mi41LjEuMTY5OTE2OTA3MS41NS4wLjA.",
+        "https://firebasestorage.googleapis.com/v0/b/oktastudio-ff8ec.appspot.com/o/Product%2FNMD45-removebg-preview.png?alt=media&token=0e9b1045-0f2d-4945-b66c-7c3ed3122a56",
+        "https://firebasestorage.googleapis.com/v0/b/oktastudio-ff8ec.appspot.com/o/Product%2FNMD3.png?alt=media&token=b559e575-bcdf-4c17-bba7-5bcf83c9fb09&_gl=1*vbh34b*_ga*MTM1ODg2NTM3LjE2OTkwNzc4NDE.*_ga_CW55HF8NVT*MTY5OTE2NTc4Mi41LjEuMTY5OTE2ODg1OC42MC4wLjA.",
+        "https://firebasestorage.googleapis.com/v0/b/oktastudio-ff8ec.appspot.com/o/Product%2FNMD4.png?alt=media&token=8d4c2b02-3792-49cd-8ff9-76edaf7ce6d9&_gl=1*mgldo1*_ga*MTM1ODg2NTM3LjE2OTkwNzc4NDE.*_ga_CW55HF8NVT*MTY5OTE2NTc4Mi41LjEuMTY5OTE2ODg2MS41Ny4wLjA."
+      ],
+      "price": 2185000,
+      "type": "NMD R1 V2 Shoes"
+    },
+    {
+      "brand": "Onitsuka Tiger",
+      "caption": "A lace-free upgrade to an Onitsuka Tiger classic, the MEXICO 66 SLIP-ON is a quick fit version of the MEXICO 66, our most recognised style. The new slip-on construction ensures ease of wear and comfort. The shoe also keeps various elements from the original MEXICO 66, such as the design of the ankle reinforcement and the much loved heel flap.",
+      "color": "Navy/Off-White",
+      "gender": "man",
+      "id": 3,
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/oktastudio-ff8ec.appspot.com/o/Product%2FOnit1-removebg-preview.png?alt=media&token=73fae72c-4830-4507-90fe-c00f3e96619e&_gl=1*17wg3bd*_ga*MTM1ODg2NTM3LjE2OTkwNzc4NDE.*_ga_CW55HF8NVT*MTY5OTE2NTc4Mi41LjEuMTY5OTE3MjE5Ny40Mi4wLjA.",
+        "https://firebasestorage.googleapis.com/v0/b/oktastudio-ff8ec.appspot.com/o/Product%2FOnit2-removebg-preview.png?alt=media&token=b65d3b9f-d77b-42ae-b257-bab340b52706&_gl=1*1m7lv9w*_ga*MTM1ODg2NTM3LjE2OTkwNzc4NDE.*_ga_CW55HF8NVT*MTY5OTE2NTc4Mi41LjEuMTY5OTE3MjIwMC4zOS4wLjA.",
+        "https://firebasestorage.googleapis.com/v0/b/oktastudio-ff8ec.appspot.com/o/Product%2FOnitsuka1-removebg-preview.png?alt=media&token=3c43347f-54e8-4648-ada0-5efbb09f6cb8",
+        "https://firebasestorage.googleapis.com/v0/b/oktastudio-ff8ec.appspot.com/o/Product%2FOnitsuka2-removebg-preview.png?alt=media&token=f25d1cfe-1400-4ce4-bbfa-8d06b18fd3a2"
+      ],
+      "price": 1700000,
+      "type": "MEXICO 66 "
+    },
+    {
+      "brand": "Adidas",
+      "caption": "Best for: Running/Take the look of a classic shoe and refresh it with modern streetwear vibes, and you get these adidas shoes that will take you through the day in supreme comfort. The Cloudfoam midsole is to thank for that, offering soft cushioning for an ultra-smooth step from your heel all the way to your toe. A flexible textile upper lets your feet breathe, and a sleek rubber outsole gives every step a solid grip.",
+      "color": "Cloud White",
+      "gender": "women",
+      "id": 4,
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/oktastudio-ff8ec.appspot.com/o/Product%2FRacer1-removebg-preview.png?alt=media&token=3ddff01a-8e4e-4b71-b50c-10f1dfb7bfa4&_gl=1*gmbxfu*_ga*MTM1ODg2NTM3LjE2OTkwNzc4NDE.*_ga_CW55HF8NVT*MTY5OTE2NTc4Mi41LjEuMTY5OTE3MTU4Ny41OS4wLjA.",
+        "https://firebasestorage.googleapis.com/v0/b/oktastudio-ff8ec.appspot.com/o/Product%2FRacer2-removebg-preview.png?alt=media&token=cb6913da-52f6-4782-bb44-020c9d0f56f4&_gl=1*z4hjuz*_ga*MTM1ODg2NTM3LjE2OTkwNzc4NDE.*_ga_CW55HF8NVT*MTY5OTE2NTc4Mi41LjEuMTY5OTE3MTc4MS4zMy4wLjA.",
+        "https://firebasestorage.googleapis.com/v0/b/oktastudio-ff8ec.appspot.com/o/Product%2FRacer3-removebg-preview.png?alt=media&token=4d77f4f8-13fc-4288-bb11-97e8eb82dd81",
+        "https://firebasestorage.googleapis.com/v0/b/oktastudio-ff8ec.appspot.com/o/Product%2FRacer4-removebg-preview.png?alt=media&token=589e325f-d936-4fd7-b73d-0917e49d5ab2&_gl=1*1eqy5kv*_ga*MTM1ODg2NTM3LjE2OTkwNzc4NDE.*_ga_CW55HF8NVT*MTY5OTE2NTc4Mi41LjEuMTY5OTE3MTc5MC4yNC4wLjA."
+      ],
+      "price": 2300000,
+      "type": "Racer TR23 Shoes"
+    },
+    {
+      "brand": "Adidas",
+      "caption": "Born on the pitch, the Samba is a timeless icon of street style. These shoes stay true to their legacy with a soft leather upper and suede overlays.",
+      "color": "Black",
+      "gender": "man",
+      "id": 13,
+      "image": [
+        "https://firebasestorage.googleapis.com/v0/b/oktastudio-ff8ec.appspot.com/o/Shop%2FUltraboost1-removebg-preview.png?alt=media&token=c546134d-9fd3-45ed-97b8-59c6a1da1e98&_gl=1*qwu1sq*_ga*MTM1ODg2NTM3LjE2OTkwNzc4NDE.*_ga_CW55HF8NVT*MTY5OTQyNjgzNy4xNy4xLjE2OTk0Mjc2NzMuMzMuMC4w",
+        "https://firebasestorage.googleapis.com/v0/b/oktastudio-ff8ec.appspot.com/o/Shop%2FUltraboost2-removebg-preview.png?alt=media&token=a016bf54-118a-4923-8439-0c0ddb1380f9&_gl=1*1h119zc*_ga*MTM1ODg2NTM3LjE2OTkwNzc4NDE.*_ga_CW55HF8NVT*MTY5OTQyNjgzNy4xNy4xLjE2OTk0Mjc2ODYuMjAuMC4w",
+        "https://firebasestorage.googleapis.com/v0/b/oktastudio-ff8ec.appspot.com/o/Shop%2FUltraboost3-removebg-preview.png?alt=media&token=96f7d93e-2752-488e-a0e2-f2a20aa71bba&_gl=1*yf03si*_ga*MTM1ODg2NTM3LjE2OTkwNzc4NDE.*_ga_CW55HF8NVT*MTY5OTQyNjgzNy4xNy4xLjE2OTk0Mjc3MDMuMy4wLjA.",
+        "https://firebasestorage.googleapis.com/v0/b/oktastudio-ff8ec.appspot.com/o/Shop%2FUltraboost4-removebg-preview.png?alt=media&token=a9df4bcb-f0b9-441f-8c36-17ffe24795f7&_gl=1*13kxo1d*_ga*MTM1ODg2NTM3LjE2OTkwNzc4NDE.*_ga_CW55HF8NVT*MTY5OTQyNjgzNy4xNy4xLjE2OTk0Mjc3MTUuNTkuMC4w"
+      ],
+      "price": 2700000,
+      "type": "Ultraboost"
+    }
+  ],
+  "user": {
+    "179": {
+      "email": "1313@gmail.com",
+      "id": 179,
+      "password": "$2b$10$pQ5yg9poSIY4fSSKKqKIQObSkA.JjbYxd3zRPEVs7Uk2U/rRJXePK",
+      "username": "asdasd"
+    }
+  }
+}

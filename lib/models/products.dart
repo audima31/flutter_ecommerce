@@ -17,7 +17,7 @@ class Products {
   final List<String> image;
   final double price;
   final String type;
-  bool _isFav = false;
+  final bool _isFav = false;
 
   bool get isFav => _isFav;
 }
