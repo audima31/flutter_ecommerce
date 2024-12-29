@@ -9,7 +9,7 @@ class BoxBackgroundHomePage extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 1.0,
       height: MediaQuery.of(context).size.height * 5.0,
       decoration: BoxDecoration(
-        color: const Color(0xfffdfdfd),
+        color: const Color(0xfffdfdfd).withOpacity(0.3),
         borderRadius: BorderRadius.circular(20),
       ),
     );

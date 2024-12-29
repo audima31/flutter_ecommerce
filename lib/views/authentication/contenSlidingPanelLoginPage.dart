@@ -1,4 +1,4 @@
-import 'package:ecommerce/views/authentication/contenSlidingPanelSignUpPage.dart';
+import 'package:ecommerce/services/authentication_firebase.dart';
 import 'package:flutter/material.dart';
 
 class ContentSlidingPanelLoginPage extends StatefulWidget {
@@ -30,44 +30,30 @@ class _ContentslidingPanelLoginPageState
   //Variable untuk menyimpan data form
   String _setStateEmail = '';
   String _setStatePassword = '';
+  bool isLoading = false;
 
   /// Fungsi untuk menangani submit form, jika form valid maka
   /// akan menyimpan data input ke dalam variabel `_setStateEmail` dan `_setStatePassword`,
   /// lalu menghapus inputan dari form. Jika form tidak valid maka
   /// akan menampilkan dialog pesan kesalahan.
-  void handleSubmit() {
-    //Jika semua data berhasil lolos validasi, maka jalankan kode di sini
+  void handleSignIn() async {
     if (_formKey.currentState!.validate()) {
       setState(() {
         _setStateEmail = _emailController.text.trim();
         _setStatePassword = _passwordController.text.trim();
+        isLoading = true;
       });
-      print('EMAILLL :  $_setStateEmail');
-      print('PASSWORD :  $_setStatePassword');
 
-      _emailController.clear();
-      _passwordController.clear();
+      await AuthServiceFunctions().signIn(
+        email: _setStateEmail,
+        password: _setStatePassword,
+        context: context,
+      );
+
+      setState(() {
+        isLoading = false;
+      });
     }
-    // else {
-    //   showDialog(
-    //     context: context,
-    //     builder: (context) {
-    //       return AlertDialog(
-    //         title: const Text('Periksa input Anda'),
-    //         content: const Text('Email atau password tidak valid!'),
-    //         backgroundColor: Colors.orange,
-    //         actions: [
-    //           TextButton(
-    //             onPressed: () {
-    //               Navigator.of(context).pop();
-    //             },
-    //             child: const Text('OK'),
-    //           ),
-    //         ],
-    //       );
-    //     },
-    //   );
-    // }
   }
 
   @override
@@ -149,8 +135,6 @@ class _ContentslidingPanelLoginPageState
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
                             return 'Password tidak boleh kosong!';
-                          } else if (value.length < 6) {
-                            return 'Password tidak boleh kurang dari 6 karakter!';
                           }
                           return null;
                         },
@@ -172,9 +156,10 @@ class _ContentslidingPanelLoginPageState
                       SizedBox(
                         width: double.infinity,
                         child: FilledButton(
-                          onPressed: handleSubmit,
+                          onPressed: isLoading ? null : handleSignIn,
                           style: FilledButton.styleFrom(
-                              backgroundColor: Colors.orange,
+                              backgroundColor:
+                                  isLoading ? Colors.grey : Colors.orange,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               )),

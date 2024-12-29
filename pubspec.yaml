@@ -41,6 +41,8 @@ dependencies:
   firebase_core: ^3.8.1
   smooth_page_indicator: ^1.2.0+3
   intl: ^0.18.0
+  firebase_auth: ^5.3.4
+  fluttertoast: ^8.2.10
 
 dev_dependencies:
   flutter_test:
@@ -67,6 +69,7 @@ flutter:
   assets:
     - assets/img/sepatu/
     - assets/img/photo/
+    - assets/img/icon/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

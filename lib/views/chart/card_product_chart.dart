@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CardProductChart extends StatefulWidget {
-  CardProductChart({super.key});
+  CardProductChart({
+    super.key,
+  });
 
   @override
   State<CardProductChart> createState() => _CardProductChartState();

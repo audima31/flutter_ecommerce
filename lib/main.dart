@@ -10,8 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:ecommerce/theme.dart';
 
 void main() async {
+  //Untuk Inisialisasi Firebase
   WidgetsFlutterBinding.ensureInitialized();
-
   await Firebase.initializeApp(
       // options: DefaultFirebaseOptions.currentPlatform,
       );

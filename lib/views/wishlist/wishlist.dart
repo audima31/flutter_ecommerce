@@ -26,10 +26,11 @@ class _WishlistPageState extends State<WishlistPage> {
         child: Container(
           color: Colors.white,
           height: MediaQuery.of(context).size.height * 1,
-          padding: EdgeInsets.symmetric(
-              horizontal: MediaQuery.of(context).size.width * 0.02),
+          width: MediaQuery.of(context).size.width * 1,
           child: const Column(
             children: [
+              CardProductWishlist(),
+              CardProductWishlist(),
               CardProductWishlist(),
             ],
           ),

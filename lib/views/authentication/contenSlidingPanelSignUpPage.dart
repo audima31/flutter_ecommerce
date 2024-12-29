@@ -1,3 +1,4 @@
+import 'package:ecommerce/services/authentication_firebase.dart';
 import 'package:flutter/material.dart';
 
 class ContentSlidingPanelSignUpPage extends StatefulWidget {
@@ -29,45 +30,33 @@ class _ContentslidingPanelSignUpPageState
   String _setStateName = '';
   String _setStateEmail = '';
   String _setStatePassword = '';
+  bool isLoading = false;
 
   /// Fungsi untuk menangani submit form, jika form valid maka
   /// akan menyimpan data input ke dalam variabel `_setStateEmail` dan `_setStatePassword`,
   /// lalu menghapus inputan dari form. Jika form tidak valid maka
   /// akan menampilkan dialog pesan kesalahan.
-  void handleSubmit() {
-    //Jika semua data berhasil lolos validasi, maka jalankan kode di sini
+  void handleSignUp() async {
     if (_formKey.currentState!.validate()) {
       setState(() {
         _setStateEmail = _emailController.text.trim();
         _setStatePassword = _passwordController.text.trim();
         _setStateName = _nameController.text.trim();
+        isLoading = true;
       });
-      print('EMAILLL :  $_setStateEmail');
-      print('PASSWORD :  $_setStatePassword');
 
+      await AuthServiceFunctions().signUp(
+        context: context,
+        email: _setStateEmail,
+        password: _setStatePassword,
+      );
+
+      setState(() {
+        isLoading = false;
+      });
       _emailController.clear();
       _passwordController.clear();
     }
-    // else {
-    //   showDialog(
-    //     context: context,
-    //     builder: (context) {
-    //       return AlertDialog(
-    //         title: const Text('Periksa input Anda'),
-    //         content: const Text('Email atau password tidak valid!'),
-    //         backgroundColor: Colors.orange,
-    //         actions: [
-    //           TextButton(
-    //             onPressed: () {
-    //               Navigator.of(context).pop();
-    //             },
-    //             child: const Text('OK'),
-    //           ),
-    //         ],
-    //       );
-    //     },
-    //   );
-    // }
   }
 
   @override
@@ -100,6 +89,7 @@ class _ContentslidingPanelSignUpPageState
                         if (value == null || value.trim().isEmpty) {
                           return 'Name cannot be empty!';
                         }
+                        return null; // Return null if the input is valid
                       },
                     ),
                     const SizedBox(height: 20),
@@ -115,8 +105,6 @@ class _ContentslidingPanelSignUpPageState
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
                           return 'Email cannot be empty!';
-                        } else if (value.length < 6) {
-                          return 'Email must be at least 6 characters!';
                         }
                         return null;
                       },
@@ -136,9 +124,10 @@ class _ContentslidingPanelSignUpPageState
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
                           return 'Password cannot be empty!';
-                        } else if (value.length < 6) {
-                          return 'Password must be at least 6 characters!';
                         }
+                        // else if (value.length < 6) {
+                        //   return 'Password must be at least 6 characters!';
+                        // }
                         return null;
                       },
                     ),
@@ -146,9 +135,11 @@ class _ContentslidingPanelSignUpPageState
                     SizedBox(
                       width: double.infinity,
                       child: FilledButton(
-                        onPressed: handleSubmit,
+                        onPressed: isLoading ? null : handleSignUp,
                         style: FilledButton.styleFrom(
-                            backgroundColor: Colors.orange,
+                            backgroundColor: isLoading
+                                ? Colors.grey
+                                : Colors.orange, // Perbarui warna saat loading
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             )),
