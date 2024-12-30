@@ -44,7 +44,7 @@ class _ContentslidingPanelLoginPageState
         isLoading = true;
       });
 
-      await AuthServiceFunctions().signIn(
+      await AuthenticationFirebaseService().signIn(
         email: _setStateEmail,
         password: _setStatePassword,
         context: context,

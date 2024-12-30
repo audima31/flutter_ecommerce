@@ -47,7 +47,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    await AuthServiceFunctions().signOut(context: context);
+                    await AuthenticationFirebaseService()
+                        .signOut(context: context);
                   },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(

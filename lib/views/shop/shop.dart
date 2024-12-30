@@ -1,8 +1,12 @@
+import 'package:ecommerce/services/auth_store.dart';
+import 'package:ecommerce/services/authentication_firebase.dart';
+import 'package:ecommerce/services/product_store.dart';
 import 'package:ecommerce/views/home/profile_chart.dart';
 import 'package:ecommerce/views/home/shoes_card.dart';
 import 'package:ecommerce/views/shop/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ShopPage extends StatefulWidget {
@@ -12,72 +16,29 @@ class ShopPage extends StatefulWidget {
   State<ShopPage> createState() => _ShopPageState();
 }
 
-final List<String> iklanImages = [
-  'assets/img/photo/container_satu.png',
-  'assets/img/photo/container_dua.png',
-  'assets/img/photo/container_tiga.png',
-];
-
-class Product {
-  final String name;
-  final String brand;
-  final double price;
-  final String image;
-  final List<Color> colors;
-
-  Product({
-    required this.name,
-    required this.brand,
-    required this.price,
-    required this.image,
-    required this.colors,
-  });
-}
-
-final List<Product> products = [
-  Product(
-    name: 'Soft Element Jack',
-    brand: 'Nike',
-    price: 1200000,
-    image: 'assets/img/sepatu/sepatu.png',
-    colors: [Colors.black, Colors.grey, Colors.purple],
-  ),
-  Product(
-    name: 'Soft Element Jack',
-    brand: 'Nike',
-    price: 1200000,
-    image: 'assets/img/sepatu/sepatu.png',
-    colors: [Colors.black, Colors.grey, Colors.purple],
-  ),
-  Product(
-    name: 'Soft Element Jack',
-    brand: 'Nike',
-    price: 1200000,
-    image: 'assets/img/sepatu/sepatu.png',
-    colors: [Colors.black, Colors.grey, Colors.purple],
-  ),
-  Product(
-    name: 'Soft Element Jack',
-    brand: 'Nike',
-    price: 1200000,
-    image: 'assets/img/sepatu/sepatu.png',
-    colors: [Colors.black, Colors.grey, Colors.purple],
-  ),
-  Product(
-    name: 'Soft Element Jack',
-    brand: 'Nike',
-    price: 1200000,
-    image: 'assets/img/sepatu/sepatu.png',
-    colors: [Colors.black, Colors.grey, Colors.purple],
-  ),
-];
-
-String formatRupiah(double amount) {
+String formatRupiah(int amount) {
   return NumberFormat('#,###', 'id_ID').format(amount).replaceAll(',', '.');
 }
 
 class _ShopPageState extends State<ShopPage> {
   final PageController _pageIklanController = PageController();
+  @override
+  void initState() {
+    super.initState();
+    // Memanggil fungsi fetchDataProduct untuk mengambil data produk saat halaman pertama kali dimuat
+    final productStoreProvider =
+        Provider.of<ProductStoreProvider>(context, listen: false);
+    productStoreProvider.fetchDataProduct();
+
+    debugPrint('masuk View ${productStoreProvider.products.length.toString()}');
+  }
+
+  void cekUser() {
+    final authStoreProvider =
+        Provider.of<AuthStoreProvider>(context, listen: false);
+    authStoreProvider.fecthDataUser();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -149,109 +110,122 @@ class _ShopPageState extends State<ShopPage> {
                   }),
                 )),
 
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * 0.05),
-              child: GridView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  childAspectRatio: 0.7,
-                ),
-                itemCount: products.length,
-                itemBuilder: (context, index) {
-                  final product = products[index];
-                  return Stack(
-                    children: [
-                      Card(
-                        elevation: 4,
-                        child: InkWell(
-                          onTap: () {},
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: Image.asset(
-                                  product.image,
-                                  width: double.infinity,
-                                  fit: BoxFit.cover,
+//Menampilkan data dari Provider -------------------------------------------------------------
+            Consumer<ProductStoreProvider>(
+                builder: (context, productStoreProvider, child) {
+              //Menunggu data product selesai diambil
+              if (productStoreProvider.products.isEmpty) {
+                return const CircularProgressIndicator();
+              }
+              return Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width * 0.05),
+                child: GridView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                    childAspectRatio: 0.7,
+                  ),
+                  itemCount: productStoreProvider.products.length,
+                  itemBuilder: (context, index) {
+                    final product = productStoreProvider.products[index];
+                    // print('masuk Gambar sepatu : ${product.image[0]}');
+                    return Stack(
+                      children: [
+                        Card(
+                          elevation: 4,
+                          child: InkWell(
+                            onTap: () {
+                              cekUser();
+                            },
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  child: Image.network(
+                                    '${product.image[0]}',
+                                    fit: BoxFit.contain,
+                                  ),
                                 ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      MediaQuery.of(context).size.width * 0.03,
-                                ),
-                                child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        product.brand ?? 'Unknown Brand',
-                                        style: TextStyle(
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal:
+                                        MediaQuery.of(context).size.width *
+                                            0.03,
+                                  ),
+                                  child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          product.brand ?? 'Unknown Brand',
+                                          style: TextStyle(
+                                              fontSize: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.03,
+                                              color: Colors.black
+                                                  .withOpacity(0.35)),
+                                        ),
+                                        Text(
+                                          product.type ?? 'Unknown Type',
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black,
                                             fontSize: MediaQuery.of(context)
                                                     .size
                                                     .width *
-                                                0.03,
-                                            color:
-                                                Colors.black.withOpacity(0.35)),
-                                      ),
-                                      Text(
-                                        product.name,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                          fontSize: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.04,
+                                                0.04,
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.005),
-                                      Text(
-                                        'Rp. ${formatRupiah(product.price)}',
-                                        style: TextStyle(
-                                          color: Colors.orange,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.04,
+                                        SizedBox(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.005),
+                                        Text(
+                                          'Rp. ${formatRupiah(product.price)}',
+                                          style: TextStyle(
+                                            color: Colors.orange,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.04,
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.015),
-                                    ]),
-                              )
-                            ],
+                                        SizedBox(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.015),
+                                      ]),
+                                )
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      Positioned(
-                        right: 0,
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.favorite_border,
-                            size: MediaQuery.of(context).size.width * 0.05,
+                        Positioned(
+                          right: 0,
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.favorite_border,
+                              size: MediaQuery.of(context).size.width * 0.05,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  );
-                },
-              ),
-            ),
+                      ],
+                    );
+                  },
+                ),
+              );
+            }),
 
             SizedBox(height: MediaQuery.of(context).size.height * 0.13),
           ],

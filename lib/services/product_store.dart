@@ -1,11 +1,30 @@
+import 'package:ecommerce/models/products.dart';
+import 'package:ecommerce/services/firebase_service.dart';
 import 'package:flutter/material.dart';
 
-class ProductStore extends ChangeNotifier {
-  final List<Map<String, dynamic>> _products = [];
+class ProductStoreProvider extends ChangeNotifier {
+  //Buat ngambil layanan Firebase dari ProductFirebaseRealtimaDatabaseService
+  final ProductFirebaseRealtimaDatabaseService _firebaseRealtimaDatabaseService;
 
-  get products => _products;
+  ProductStoreProvider(this._firebaseRealtimaDatabaseService);
 
-  //Fetch data product
+  List<ProductsModels> _products = [];
+  List<ProductsModels> get products => _products;
 
-  //Remove from cart
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
+
+  Future<void> fetchDataProduct() async {
+    print('Masuk Provider Product');
+    _isLoading = true;
+    notifyListeners();
+
+    try {
+      _products = await _firebaseRealtimaDatabaseService.fetchDataProduct();
+    } catch (error) {
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
 }

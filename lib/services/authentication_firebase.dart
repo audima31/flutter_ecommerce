@@ -1,10 +1,12 @@
 import 'package:ecommerce/main.dart';
+import 'package:ecommerce/models/authentication.dart';
 import 'package:ecommerce/views/authentication/login.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class AuthServiceFunctions {
+class AuthenticationFirebaseService {
   /// Fungsi untuk Sign Up -----------------------------------------------------
   Future<void> signUp({
     required String email,
@@ -112,5 +114,35 @@ class AuthServiceFunctions {
         MaterialPageRoute(
           builder: (context) => const LoginPage(),
         ));
+  }
+
+  Future<UserModels?> getCurrentUser() async {
+    //Untuk mendapatkan infomasi ID pengguna yang sedang login
+    User? firebaseUser = FirebaseAuth.instance.currentUser;
+    if (firebaseUser != null) {
+      print('User ID : ----------${firebaseUser.uid}');
+
+      //Jika user sedang login, maka akan mengambil data user dari Firebase Realtime Database
+      final _databaseReference = FirebaseDatabase.instance.ref();
+      final snapshot =
+          await _databaseReference.child('user/${firebaseUser.uid}').once();
+
+      if (snapshot.snapshot.exists) {
+        final data = snapshot.snapshot.value;
+        print('Data user: $data');
+
+        if (data is Map) {
+          // Mengembalikan data pengguna dari Firebase Realtime Database
+          return UserModels.fromMap(Map<String, dynamic>.from(data));
+        } else {
+          print('Data is not in the correct format.');
+        }
+      } else {
+        print('User not found in database.');
+      }
+    } else {
+      print('User is not logged in.');
+    }
+    return null;
   }
 }
