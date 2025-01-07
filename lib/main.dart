@@ -1,18 +1,15 @@
-// import 'package:ecommerce/views/authentication/login.dart';
 import 'package:ecommerce/services/auth_store.dart';
-import 'package:ecommerce/services/authentication_firebase.dart';
+import 'package:ecommerce/services/auth_service.dart';
+import 'package:ecommerce/services/cart_service.dart';
+import 'package:ecommerce/services/cart_store.dart';
 import 'package:ecommerce/services/firebase_service.dart';
 import 'package:ecommerce/services/product_store.dart';
-import 'package:ecommerce/views/chart/chart.dart';
 import 'package:ecommerce/views/home/home.dart';
-// import 'package:ecommerce/views/home/realtimeDatabase.dart';
 import 'package:ecommerce/views/profile/profile.dart';
 import 'package:ecommerce/views/shop/shop.dart';
-import 'package:ecommerce/views/shop/test.dart';
 import 'package:ecommerce/views/wishlist/wishlist.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:ecommerce/theme.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -39,6 +36,9 @@ class MyApp extends StatelessWidget {
           create: (context) =>
               AuthStoreProvider(AuthenticationFirebaseService()),
         ),
+        ChangeNotifierProvider(
+          create: (context) => CartStoreProvider(CartFirebaseService()),
+        ),
       ],
       child: const MaterialApp(
         home: MainPage(),
@@ -59,7 +59,7 @@ class _MainPageState extends State<MainPage> {
 
   final List<Widget> _pages = [
     const Home(),
-    const ShopPage(),
+    ShopPage(),
     const WishlistPage(),
     const ProfilePage(),
   ];

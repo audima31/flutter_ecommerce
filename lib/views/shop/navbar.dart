@@ -1,8 +1,13 @@
+import 'package:ecommerce/views/chart/chart.dart';
 import 'package:flutter/material.dart';
 
 class NavbarShop extends StatelessWidget {
-  const NavbarShop({super.key});
+  const NavbarShop({
+    super.key,
+    required this.name,
+  });
 
+  final String name;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -33,8 +38,25 @@ class NavbarShop extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // name != null
+                  //   ? Text(
+                  //       'Hi, $name 👋🏻',
+                  //       style: TextStyle(
+                  //         fontWeight: FontWeight.bold,
+                  //         color: Colors.black,
+                  //         fontSize: MediaQuery.of(context).size.width * 0.05,
+                  //         shadows: [
+                  //           Shadow(
+                  //             blurRadius: 32,
+                  //             color: Colors.orange,
+                  //             offset: Offset(0, 2),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     )
+                  //   : CircularProgressIndicator(),
                   Text(
-                    'Hi, Audima 👋🏻',
+                    'Hi, $name 👋🏻',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
@@ -61,7 +83,10 @@ class NavbarShop extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
           ),
           child: InkWell(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const ChartPage()));
+            },
             borderRadius: BorderRadius.circular(20),
             child: Container(
               padding: EdgeInsets.symmetric(

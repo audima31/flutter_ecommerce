@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
 class NavbarProfile extends StatelessWidget {
-  const NavbarProfile({super.key});
+  const NavbarProfile({super.key, required this.name});
+
+  final String name;
 
   @override
   Widget build(BuildContext context) {
+    print('Nama Navbar Profile: $name');
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -34,7 +37,7 @@ class NavbarProfile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Hi, Audima 👋🏻',
+                    'Hi, $name 👋🏻',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.black,

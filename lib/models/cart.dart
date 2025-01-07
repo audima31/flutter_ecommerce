@@ -1,48 +1,70 @@
 class CartModels {
-  //constructor
-
   CartModels({
-    required this.brand,
-    required this.caption,
-    required this.color,
-    required this.gender,
     required this.idCart,
-    required this.idProduct,
     required this.idUser,
     required this.image,
+    required this.color,
+    required this.gender,
     required this.jumlahBarang,
     required this.price,
+    required this.caption,
+    required this.idProduct,
     required this.priceAwal,
     required this.type,
+    required this.brand,
+    required this.size,
   });
 
-  final String brand;
-  final String caption;
+  final String idCart;
+  final String idUser;
+  final List<String> image;
   final String color;
   final String gender;
-  final String idCart;
-  final int idProduct;
-  final String idUser;
-  final String image;
   final int jumlahBarang;
   final int price;
+  final String caption;
+  final int idProduct;
   final int priceAwal;
   final String type;
+  final String brand;
+  final int size;
 
-  factory CartModels.fromMap(Map<String, dynamic> map) {
+//Get
+  factory CartModels.fromMap(Map<dynamic, dynamic> map) {
+    print('masuk model cartModels $map');
     return CartModels(
-      brand: map['brand'],
-      caption: map['caption'],
-      color: map['color'],
-      gender: map['gender'],
-      idCart: map['idCart'],
-      idProduct: map['idProduct'],
-      idUser: map['idUser'],
-      image: map['image'],
-      jumlahBarang: map['jumlahBarang'],
-      price: map['price'],
-      priceAwal: map['priceAwal'],
-      type: map['type'],
+      idCart: map['idCart'] ?? '',
+      idUser: map['idUser'] ?? '',
+      image: List<String>.from(map['image'] ?? []),
+      color: map['color'] ?? '',
+      gender: map['gender'] ?? '',
+      jumlahBarang: map['jumlahBarang'] ?? 0,
+      price: map['price'] ?? 0,
+      caption: map['caption'] ?? '',
+      idProduct: map['idProduct'] ?? 0,
+      priceAwal: map['priceAwal'] ?? 0,
+      type: map['type'] ?? '',
+      brand: map['brand'] ?? '',
+      size: map['size'] ?? '',
     );
+  }
+
+  //Sent to Firebase
+  Map<String, dynamic> toMap() {
+    return {
+      'idCart': idCart,
+      'idUser': idUser,
+      'image': image,
+      'color': color,
+      'gender': gender,
+      'jumlahBarang': jumlahBarang,
+      'price': price,
+      'caption': caption,
+      'idProduct': idProduct,
+      'priceAwal': priceAwal,
+      'type': type,
+      'brand': brand,
+      'size': size
+    };
   }
 }

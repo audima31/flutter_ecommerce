@@ -1,5 +1,5 @@
 import 'package:ecommerce/services/auth_store.dart';
-import 'package:ecommerce/services/authentication_firebase.dart';
+import 'package:ecommerce/services/auth_service.dart';
 import 'package:ecommerce/models/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

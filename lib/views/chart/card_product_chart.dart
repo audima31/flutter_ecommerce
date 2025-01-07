@@ -1,10 +1,16 @@
+import 'package:ecommerce/models/cart.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class CardProductChart extends StatefulWidget {
-  CardProductChart({
+  const CardProductChart({
+    required this.productData,
+    required this.functionButtonKlik,
     super.key,
   });
 
+  final CartModels productData; // Tambahkan parameter data produk
+  final void Function()? functionButtonKlik;
   @override
   State<CardProductChart> createState() => _CardProductChartState();
 }
@@ -12,7 +18,12 @@ class CardProductChart extends StatefulWidget {
 class _CardProductChartState extends State<CardProductChart> {
   TextEditingController _selectTotal = TextEditingController();
 
-  int _setSelectedTotal = 1;
+  late int _setSelectedTotal;
+
+  void initState() {
+    super.initState();
+    _setSelectedTotal = widget.productData.jumlahBarang;
+  }
 
   void handleKurangBarang() {
     if (_setSelectedTotal > 1) {
@@ -30,6 +41,10 @@ class _CardProductChartState extends State<CardProductChart> {
     }
   }
 
+  String formatRupiah(int amount) {
+    return NumberFormat('#,###', 'id_ID').format(amount).replaceAll(',', '.');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -37,7 +52,9 @@ class _CardProductChartState extends State<CardProductChart> {
       elevation: 3,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          widget.functionButtonKlik!();
+        },
         child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Expanded(
             flex: 3,
@@ -47,8 +64,8 @@ class _CardProductChartState extends State<CardProductChart> {
                 color: Colors.grey.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(20),
               ),
-              child: Image.asset(
-                'assets/img/sepatu/sepatu.png',
+              child: Image.network(
+                widget.productData.image[0].toString(),
                 fit: BoxFit.fitWidth,
               ),
             ),
@@ -56,6 +73,7 @@ class _CardProductChartState extends State<CardProductChart> {
           Expanded(
             flex: 7,
             child: SizedBox(
+              width: MediaQuery.of(context).size.width * 1,
               height: MediaQuery.of(context).size.height * 0.15,
               child: Padding(
                 padding: EdgeInsets.symmetric(
@@ -68,32 +86,21 @@ class _CardProductChartState extends State<CardProductChart> {
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Nike',
-                              style: TextStyle(
-                                fontSize:
-                                    MediaQuery.of(context).size.height * 0.022,
-                                fontWeight: FontWeight.bold,
-                                color: const Color.fromARGB(255, 128, 128, 128),
-                              ),
-                            ),
-                            Text(
-                              ' Air Force 1 Shadow',
-                              style: TextStyle(
-                                fontSize:
-                                    MediaQuery.of(context).size.height * 0.022,
-                                fontWeight: FontWeight.bold,
-                                color: const Color.fromARGB(255, 128, 128, 128),
-                              ),
-                            ),
-                          ],
+                        Text(
+                          '${widget.productData.brand} ${widget.productData.type}',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize:
+                                MediaQuery.of(context).size.height * 0.022,
+                            fontWeight: FontWeight.bold,
+                            color: const Color.fromARGB(255, 128, 128, 128),
+                          ),
                         ),
                         const Text(
-                          'Ukuran: 40',
+                          'Ukuran : PERBAIKI DATABASE',
                           style: TextStyle(
                             color: Color.fromARGB(255, 128, 128, 128),
                           ),
@@ -105,7 +112,7 @@ class _CardProductChartState extends State<CardProductChart> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Rp. 1.000.000',
+                          'Rp. ${formatRupiah(widget.productData.price)}',
                           style: TextStyle(
                             fontSize:
                                 MediaQuery.of(context).size.height * 0.023,
@@ -144,7 +151,7 @@ class _CardProductChartState extends State<CardProductChart> {
                                 ),
                               ),
                               Text(
-                                _setSelectedTotal.toString(),
+                                '${_setSelectedTotal}',
                                 style: TextStyle(
                                   fontSize: MediaQuery.of(context).size.height *
                                       0.015,

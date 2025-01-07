@@ -1,3 +1,4 @@
+import 'package:ecommerce/models/cart.dart';
 import 'package:ecommerce/models/products.dart';
 import 'package:firebase_database/firebase_database.dart';
 
@@ -46,6 +47,37 @@ class ProductFirebaseRealtimaDatabaseService {
     } catch (e) {
       print('Error: $e');
       throw Exception('Failed to fetch data: $e');
+    }
+  }
+
+  Future<ProductsModels> fetchDetailDataProduct(
+      {required int idProduct}) async {
+    print('Masuk Service Detail Product : $idProduct');
+
+    try {
+      final snapshot =
+          await _databaseReference.child('product/$idProduct/').get();
+
+      print('masuk Service 2 Detail Product ${snapshot.value}');
+
+      if (snapshot.exists) {
+        final data = snapshot.value;
+
+        if (data is List) {
+          print('masuk List Service Detail Product ${data.length.toString()}');
+          return ProductsModels.fromMap(Map<String, dynamic>.from(data[0]));
+        } else if (data is Map) {
+          return ProductsModels.fromMap(Map<String, dynamic>.from(data));
+        } else {
+          throw Exception('Invalid data format');
+        }
+      } else {
+        print('snapshot does not exist');
+        throw Exception('No data found');
+      }
+    } catch (e) {
+      print('Error: $e');
+      throw Exception('Error fetching data: $e');
     }
   }
 }

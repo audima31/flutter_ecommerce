@@ -26,8 +26,8 @@ class CardProductHomePage extends StatelessWidget {
               child: InkWell(
                 borderRadius: BorderRadius.circular(20),
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => DetailProduct()));
+                  // Navigator.push(context,
+                  //     MaterialPageRoute(builder: (context) => DetailProduct()));
                 },
                 child: Stack(
                   children: [

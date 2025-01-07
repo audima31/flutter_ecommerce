@@ -8,6 +8,7 @@ class ProductsModels {
     required this.image,
     required this.price,
     required this.type,
+    required this.color,
   });
 
   final int id;
@@ -17,10 +18,11 @@ class ProductsModels {
   final List<String> image;
   final int price;
   final String type;
+  final String color;
 
   // Factory constructor for creating a new product from a Map
   factory ProductsModels.fromMap(Map<String, dynamic> map) {
-    print('Products Models -------------');
+    print('Masuk Products Models -------------');
     return ProductsModels(
       id: map['id'],
       brand: map['brand'],
@@ -30,6 +32,7 @@ class ProductsModels {
           map['image'] ?? []), // Ensure image is a list of strings
       price: map['price'],
       type: map['type'],
+      color: map['color'],
     );
   }
 }

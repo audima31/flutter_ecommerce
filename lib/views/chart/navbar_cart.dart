@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class NavbarCart extends StatelessWidget {
-  const NavbarCart({super.key});
+  const NavbarCart({super.key, required this.name});
+
+  final String name;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +50,7 @@ class NavbarCart extends StatelessWidget {
                           ),
                           children: [
                             TextSpan(
-                              text: 'Audima',
+                              text: name ?? 'Loading...',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,

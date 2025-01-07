@@ -10,10 +10,10 @@ class CardProductList extends StatelessWidget {
 
     return TextButton(
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const DetailProduct()),
-        );
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => const DetailProduct()),
+        // );
       },
       child: Card(
         child: Padding(
