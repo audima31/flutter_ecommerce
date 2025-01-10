@@ -1,7 +1,6 @@
 import 'package:ecommerce/services/auth_store.dart';
 import 'package:ecommerce/services/cart_store.dart';
 import 'package:ecommerce/views/chart/amount_cart.dart';
-import 'package:ecommerce/views/chart/card_address_user.dart';
 import 'package:ecommerce/views/chart/card_product_chart.dart';
 import 'package:ecommerce/views/chart/navbar_cart.dart';
 import 'package:flutter/material.dart';

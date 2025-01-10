@@ -2,8 +2,10 @@ import 'package:ecommerce/services/auth_store.dart';
 import 'package:ecommerce/services/auth_service.dart';
 import 'package:ecommerce/services/cart_service.dart';
 import 'package:ecommerce/services/cart_store.dart';
-import 'package:ecommerce/services/firebase_service.dart';
+import 'package:ecommerce/services/product_service.dart';
 import 'package:ecommerce/services/product_store.dart';
+import 'package:ecommerce/services/wishlist_service.dart';
+import 'package:ecommerce/services/wishlist_store.dart';
 import 'package:ecommerce/views/home/home.dart';
 import 'package:ecommerce/views/profile/profile.dart';
 import 'package:ecommerce/views/shop/shop.dart';
@@ -29,8 +31,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) =>
-              ProductStoreProvider(ProductFirebaseRealtimaDatabaseService()),
+          create: (context) => ProductStoreProvider(ProductFirbaseService()),
         ),
         ChangeNotifierProvider(
           create: (context) =>
@@ -39,6 +40,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => CartStoreProvider(CartFirebaseService()),
         ),
+        ChangeNotifierProvider(
+          create: (context) => WishlistStore(WishlistFirebaseService()),
+        )
       ],
       child: const MaterialApp(
         home: MainPage(),
@@ -60,7 +64,7 @@ class _MainPageState extends State<MainPage> {
   final List<Widget> _pages = [
     const Home(),
     ShopPage(),
-    const WishlistPage(),
+    WishlistPage(),
     const ProfilePage(),
   ];
 

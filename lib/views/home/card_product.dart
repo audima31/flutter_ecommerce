@@ -1,15 +1,28 @@
+import 'package:ecommerce/models/cart.dart';
+import 'package:ecommerce/models/products.dart';
 import 'package:ecommerce/views/detailProduct/detailProduct.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class CardProductHomePage extends StatelessWidget {
-  const CardProductHomePage({super.key});
+  const CardProductHomePage(
+      {super.key, required this.cart, required this.idUser});
+
+  final List<ProductsModels> cart;
+  final String idUser;
+
+  String formatRupiah(int amount) {
+    return NumberFormat('#,###', 'id_ID').format(amount).replaceAll(',', '.');
+  }
 
   @override
   Widget build(BuildContext context) {
+    print('Masuk Card Product : ${cart.length.toString()}');
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
-          children: List.generate(8, (index) {
+          children: List.generate(cart.length, (index) {
+        final product = cart[index];
         return Padding(
           padding: EdgeInsets.symmetric(
             horizontal: MediaQuery.of(context).size.width * 0.025,
@@ -26,8 +39,13 @@ class CardProductHomePage extends StatelessWidget {
               child: InkWell(
                 borderRadius: BorderRadius.circular(20),
                 onTap: () {
-                  // Navigator.push(context,
-                  //     MaterialPageRoute(builder: (context) => DetailProduct()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => DetailProduct(
+                                index: product.id,
+                                idUser: idUser,
+                              )));
                 },
                 child: Stack(
                   children: [
@@ -40,10 +58,9 @@ class CardProductHomePage extends StatelessWidget {
                                 const BorderRadius.all(Radius.circular(20)),
                             color: Colors.grey.shade200.withOpacity(0.4),
                           ),
-                          child: Image.asset(
-                            'assets/img/sepatu/sepatu.png',
+                          child: Image.network(
+                            '${product.image[0]}',
                             width: MediaQuery.of(context).size.width * 0.5,
-                            fit: BoxFit.cover,
                           ),
                         ),
                         SizedBox(
@@ -59,7 +76,7 @@ class CardProductHomePage extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Rp. 1.200.000',
+                                  'Rp. ${formatRupiah(product.price)}',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize:
@@ -72,7 +89,7 @@ class CardProductHomePage extends StatelessWidget {
                                       0.008,
                                 ),
                                 Text(
-                                  'Nike Air Force 1 Shadow',
+                                  '${product.brand} ${product.type}',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ),

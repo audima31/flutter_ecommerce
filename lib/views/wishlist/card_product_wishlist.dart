@@ -3,7 +3,16 @@ import 'package:flutter/material.dart';
 class CardProductWishlist extends StatefulWidget {
   const CardProductWishlist({
     super.key,
+    required this.brand,
+    required this.size,
+    required this.type,
+    required this.price,
   });
+
+  final String brand;
+  final int size;
+  final String type;
+  final int price;
 
   @override
   State<CardProductWishlist> createState() => _CardProductWishlistState();
@@ -68,14 +77,14 @@ class _CardProductWishlistState extends State<CardProductWishlist> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'Nike',
+                                    '${widget.brand}',
                                     style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400,
                                         color: Colors.black),
                                   ),
                                   Text(
-                                    'Air Jordan 1 Low OG',
+                                    '${widget.type}',
                                     style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400,
@@ -95,7 +104,7 @@ class _CardProductWishlistState extends State<CardProductWishlist> {
                             ],
                           ),
                           Text(
-                            'Rp. 1.000.000',
+                            '${widget.price}',
                             style: TextStyle(
                               fontSize:
                                   MediaQuery.of(context).size.width * 0.06,

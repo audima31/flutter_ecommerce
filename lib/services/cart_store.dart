@@ -22,7 +22,7 @@ class CartStoreProvider extends ChangeNotifier {
 
     try {
       _cart = await _cartFirebaseService.fetchDataCart(idUser: idUser);
-      notifyListeners();
+// Ganti dengan API Anda
     } catch (e) {
       print(e);
     } finally {

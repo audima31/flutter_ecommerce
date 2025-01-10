@@ -1,6 +1,9 @@
+import 'package:ecommerce/models/cart.dart';
+import 'package:ecommerce/models/wishlist.dart';
 import 'package:ecommerce/services/auth_store.dart';
 import 'package:ecommerce/services/auth_service.dart';
 import 'package:ecommerce/services/product_store.dart';
+import 'package:ecommerce/services/wishlist_store.dart';
 import 'package:ecommerce/views/detailProduct/detailProduct.dart';
 import 'package:ecommerce/views/home/profile_chart.dart';
 import 'package:ecommerce/views/home/shoes_card.dart';
@@ -14,6 +17,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 class ShopPage extends StatefulWidget {
   ShopPage({super.key});
   String? idUser;
+  bool isFavorite = false;
 
   @override
   State<ShopPage> createState() => _ShopPageState();
@@ -29,24 +33,56 @@ class _ShopPageState extends State<ShopPage> {
   @override
   void initState() {
     super.initState();
-    // Memanggil fungsi fetchDataProduct untuk mengambil data produk saat halaman pertama kali dimuat
+    // Initialize ProductStoreProvider
     final productStoreProvider =
         Provider.of<ProductStoreProvider>(context, listen: false);
     productStoreProvider.fetchDataProduct();
 
-    // Memastikan idUser diambil setelah data user tersedia
-    fetchUserId();
+    // Fetch User ID after build
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      runFunction();
+    });
+  }
+
+  void runFunction() async {
+    await fetchUserId();
+    await fetchDataWishlist();
   }
 
   Future<void> fetchUserId() async {
+    print('Masuk fetchUserId Func');
     final authStoreProvider =
         Provider.of<AuthStoreProvider>(context, listen: false);
-    await authStoreProvider
-        .fecthDataUser(); // Tunggu hingga data selesai diambil
+    await authStoreProvider.fecthDataUser();
 
-    setState(() {
-      widget.idUser = authStoreProvider.user?.id;
-    });
+    // Safely update state after ensuring the widget has been built
+    if (mounted) {
+      setState(() {
+        widget.idUser = authStoreProvider.user?.id;
+      });
+    }
+  }
+
+  Future<void> fetchDataWishlist() async {
+    print('Masuk fetchDataWishlist Func');
+    final wishlistStoreProvider =
+        Provider.of<WishlistStore>(context, listen: false);
+    await wishlistStoreProvider.fetchDataWishlist(idUser: widget.idUser!);
+  }
+
+  void addToWishlist(data) {
+    debugPrint(
+        'addToWishlist called'); // Tambahkan ini untuk memastikan fungsi dijalankan
+    if (widget.idUser == null) {
+      debugPrint('User not logged in, cannot add to wishlist.');
+      return;
+    } else {
+      debugPrint('Masuk User is logged in.');
+
+      final wishlistStoreProvider =
+          Provider.of<WishlistStore>(context, listen: false);
+      wishlistStoreProvider.addDataWishlist(wishlist: data.toMap());
+    }
   }
 
   @override
@@ -69,11 +105,13 @@ class _ShopPageState extends State<ShopPage> {
                     debugPrint('User is null, cannot fetch cart data.');
                     return const NavbarShop(
                       name: 'Loading ...', // Nilai default jika user null
+                      userId: '',
                     );
                   }
                   final nameUser = authStoreProvider.user!.name.split(' ')[0];
                   return NavbarShop(
                     name: nameUser,
+                    userId: authStoreProvider.user!.id,
                   );
                 },
               ),
@@ -161,7 +199,6 @@ class _ShopPageState extends State<ShopPage> {
                   itemCount: productStoreProvider.products.length,
                   itemBuilder: (context, index) {
                     final product = productStoreProvider.products[index];
-                    print('Index : $index');
                     return Stack(
                       children: [
                         Card(
@@ -248,13 +285,86 @@ class _ShopPageState extends State<ShopPage> {
                         ),
                         Positioned(
                           right: 0,
-                          child: IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.favorite_border,
-                              size: MediaQuery.of(context).size.width * 0.05,
-                            ),
-                          ),
+                          child: Consumer<WishlistStore>(
+                              builder: (context, wishlistStoreProvider, child) {
+                            return IconButton(
+                              onPressed: () {
+                                final wishlistStoreProvider =
+                                    Provider.of<WishlistStore>(context,
+                                        listen: false);
+
+                                final data = WishlistModel(
+                                  idWishlist:
+                                      "${DateTime.now().microsecondsSinceEpoch}-${widget.idUser}",
+                                  idUser: widget.idUser!,
+                                  idProduct: product.id,
+                                  image: product.image,
+                                  color: product.color,
+                                  gender: product.gender,
+                                  jumlahBarang: 1,
+                                  price: product.price,
+                                  caption: product.caption,
+                                  priceAwal: product.price,
+                                  type: product.type,
+                                  brand: product.brand,
+                                  size: 0,
+                                );
+
+                                final isInWishlist = wishlistStoreProvider
+                                    .wishlist
+                                    .any((wishlistItem) =>
+                                        wishlistItem.idProduct == product.id);
+
+                                if (isInWishlist) {
+                                  // Hapus dari wishlist
+                                  wishlistStoreProvider.deleteDataWishlist(
+                                      idProduct: product.id);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        '${product.brand} ${product.type} has been removed from your wishlist!',
+                                        style: const TextStyle(fontSize: 16),
+                                      ),
+                                      backgroundColor: Colors.red,
+                                      duration: const Duration(seconds: 2),
+                                    ),
+                                  );
+                                } else {
+                                  // Tambahkan ke wishlist
+                                  addToWishlist(data);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        '${product.brand} ${product.type} has been added to your wishlist!',
+                                        style: const TextStyle(fontSize: 16),
+                                      ),
+                                      backgroundColor: Colors.green,
+                                      duration: const Duration(seconds: 2),
+                                    ),
+                                  );
+                                }
+                              },
+                              icon: Consumer<WishlistStore>(
+                                builder:
+                                    (context, wishlistStoreProvider, child) {
+                                  final isInWishlist = wishlistStoreProvider
+                                      .wishlist
+                                      .any((wishlistItem) =>
+                                          wishlistItem.idProduct == product.id);
+
+                                  return Icon(
+                                    isInWishlist
+                                        ? Icons.favorite
+                                        : Icons.favorite_border,
+                                    size: MediaQuery.of(context).size.width *
+                                        0.05,
+                                    color:
+                                        isInWishlist ? Colors.red : Colors.grey,
+                                  );
+                                },
+                              ),
+                            );
+                          }),
                         ),
                       ],
                     );

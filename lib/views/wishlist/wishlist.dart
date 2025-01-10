@@ -1,8 +1,13 @@
+import 'package:ecommerce/services/auth_store.dart';
+import 'package:ecommerce/services/wishlist_store.dart';
 import 'package:ecommerce/views/wishlist/card_product_wishlist.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class WishlistPage extends StatefulWidget {
-  const WishlistPage({super.key});
+  WishlistPage({super.key});
+  String? idUser;
 
   @override
   State<WishlistPage> createState() => _WishlistPageState();
@@ -10,7 +15,43 @@ class WishlistPage extends StatefulWidget {
 
 class _WishlistPageState extends State<WishlistPage> {
   @override
+  void initState() {
+    super.initState();
+
+    // Tunda eksekusi hingga frame pertama selesai dirender
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      runFunction();
+    });
+  }
+
+  void runFunction() async {
+    await getUserId();
+    getDataWishlist();
+  }
+
+  void getDataWishlist() {
+    if (widget.idUser == null) return;
+
+    final wishlistStoreProvider =
+        Provider.of<WishlistStore>(context, listen: false);
+    wishlistStoreProvider.fetchDataWishlist(idUser: widget.idUser!);
+  }
+
+  Future<void> getUserId() async {
+    final authStoreProvider =
+        Provider.of<AuthStoreProvider>(context, listen: false);
+    await authStoreProvider.fecthDataUser();
+
+    if (mounted) {
+      setState(() {
+        widget.idUser = authStoreProvider.user?.id;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    print('Masuk View Wishlist : ${widget.idUser}');
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -25,13 +66,16 @@ class _WishlistPageState extends State<WishlistPage> {
       body: SingleChildScrollView(
         child: Container(
           color: Colors.white,
-          height: MediaQuery.of(context).size.height * 1,
-          width: MediaQuery.of(context).size.width * 1,
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
           child: const Column(
             children: [
-              CardProductWishlist(),
-              CardProductWishlist(),
-              CardProductWishlist(),
+              CardProductWishlist(
+                brand: 'Test',
+                type: 'Test2',
+                size: 20,
+                price: 20000,
+              ),
             ],
           ),
         ),

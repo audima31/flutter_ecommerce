@@ -2,7 +2,11 @@ import 'package:ecommerce/views/chart/chart.dart';
 import 'package:flutter/material.dart';
 
 class ProfileChartPage extends StatelessWidget {
-  const ProfileChartPage({super.key});
+  const ProfileChartPage(
+      {super.key, required this.name, required this.jumlahKeranjang});
+
+  final String name;
+  final String jumlahKeranjang;
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +35,12 @@ class ProfileChartPage extends StatelessWidget {
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.02,
               ),
-              const Column(
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Audima Oktasena',
-                    style: TextStyle(
+                    '$name',
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                       shadows: [
@@ -96,7 +100,7 @@ class ProfileChartPage extends StatelessWidget {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.02,
                   ),
-                  const Text('2'),
+                  Text('$jumlahKeranjang'),
                 ],
               ),
             ),

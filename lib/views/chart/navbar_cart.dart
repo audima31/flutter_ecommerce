@@ -1,10 +1,17 @@
+import 'package:ecommerce/services/cart_store.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class NavbarCart extends StatelessWidget {
+class NavbarCart extends StatefulWidget {
   const NavbarCart({super.key, required this.name});
 
   final String name;
 
+  @override
+  State<NavbarCart> createState() => _NavbarCartState();
+}
+
+class _NavbarCartState extends State<NavbarCart> {
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -50,7 +57,7 @@ class NavbarCart extends StatelessWidget {
                           ),
                           children: [
                             TextSpan(
-                              text: name ?? 'Loading...',
+                              text: widget.name ?? 'Loading...',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,

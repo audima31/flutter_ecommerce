@@ -1,15 +1,39 @@
+import 'package:ecommerce/services/cart_store.dart';
 import 'package:ecommerce/views/chart/chart.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class NavbarShop extends StatelessWidget {
+class NavbarShop extends StatefulWidget {
   const NavbarShop({
     super.key,
     required this.name,
+    required this.userId,
   });
 
   final String name;
+  final String userId;
+
+  @override
+  State<NavbarShop> createState() => _NavbarShopState();
+}
+
+class _NavbarShopState extends State<NavbarShop> {
+  @override
+  void initState() {
+    super.initState();
+    getDataCart();
+  }
+
+  void getDataCart() {
+    final cartStoreProvider =
+        Provider.of<CartStoreProvider>(context, listen: false);
+    cartStoreProvider.fetchDataCart(idUser: widget.userId);
+  }
+
   @override
   Widget build(BuildContext context) {
+    print('Masuk View Navbar Shop ${widget.userId}');
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -56,7 +80,7 @@ class NavbarShop extends StatelessWidget {
                   //     )
                   //   : CircularProgressIndicator(),
                   Text(
-                    'Hi, $name 👋🏻',
+                    'Hi, ${widget.name} 👋🏻',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
@@ -104,7 +128,10 @@ class NavbarShop extends StatelessWidget {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.02,
                   ),
-                  const Text('2'),
+                  Consumer<CartStoreProvider>(
+                      builder: (context, provider, child) {
+                    return Text('${provider.cart.length}');
+                  }),
                 ],
               ),
             ),

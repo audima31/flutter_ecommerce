@@ -35,4 +35,17 @@ class ProductsModels {
       color: map['color'],
     );
   }
+
+  Map<String, dynamic> toMap(Map<String, dynamic> map) {
+    return {
+      'id': id,
+      'brand': brand,
+      'caption': caption,
+      'gender': gender,
+      'image': image, // Ensure image is a list of strings
+      'price': price,
+      'type': type,
+      'color': color,
+    };
+  }
 }

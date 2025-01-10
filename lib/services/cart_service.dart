@@ -1,6 +1,6 @@
 import 'package:ecommerce/models/cart.dart';
 import 'package:ecommerce/models/products.dart';
-import 'package:ecommerce/services/firebase_service.dart';
+import 'package:ecommerce/services/product_service.dart';
 import 'package:ecommerce/services/product_store.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -8,9 +8,6 @@ import 'package:provider/provider.dart';
 
 class CartFirebaseService {
   final _databaseReference = FirebaseDatabase.instance.ref();
-
-  List<ProductsModels> _cart = [];
-  List<ProductsModels> get cart => _cart;
 
 //Get Data Cart ----------------------------------------------------------------
   Future<List<CartModels>> fetchDataCart({required String idUser}) async {
