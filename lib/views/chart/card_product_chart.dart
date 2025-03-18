@@ -16,10 +16,11 @@ class CardProductChart extends StatefulWidget {
 }
 
 class _CardProductChartState extends State<CardProductChart> {
-  TextEditingController _selectTotal = TextEditingController();
+  final TextEditingController _selectTotal = TextEditingController();
 
   late int _setSelectedTotal;
 
+  @override
   void initState() {
     super.initState();
     _setSelectedTotal = widget.productData.jumlahBarang;
@@ -151,7 +152,7 @@ class _CardProductChartState extends State<CardProductChart> {
                                 ),
                               ),
                               Text(
-                                '${_setSelectedTotal}',
+                                '$_setSelectedTotal',
                                 style: TextStyle(
                                   fontSize: MediaQuery.of(context).size.height *
                                       0.015,

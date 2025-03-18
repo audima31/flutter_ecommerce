@@ -59,7 +59,7 @@ class CardProductHomePage extends StatelessWidget {
                             color: Colors.grey.shade200.withOpacity(0.4),
                           ),
                           child: Image.network(
-                            '${product.image[0]}',
+                            product.image[0],
                             width: MediaQuery.of(context).size.width * 0.5,
                           ),
                         ),
@@ -90,7 +90,7 @@ class CardProductHomePage extends StatelessWidget {
                                 ),
                                 Text(
                                   '${product.brand} ${product.type}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -98,7 +98,7 @@ class CardProductHomePage extends StatelessWidget {
                                   height: MediaQuery.of(context).size.height *
                                       0.005,
                                 ),
-                                Text(
+                                const Text(
                                   'Men\' shoes',
                                   style: TextStyle(
                                     fontWeight: FontWeight.normal,

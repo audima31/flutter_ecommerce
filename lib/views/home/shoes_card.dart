@@ -1,4 +1,3 @@
-import 'package:ecommerce/views/detailProduct/detailProduct.dart';
 import 'package:flutter/material.dart';
 
 class CardProductList extends StatelessWidget {

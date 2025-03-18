@@ -110,12 +110,11 @@ class _HomeState extends State<Home> {
                     var cart = cartStoreProvider.cart;
                     if (cartStoreProvider.isLoading == true) {
                       return ProfileChartPage(
-                          name: '${'Loading ...'}',
+                          name: 'Loading ...',
                           jumlahKeranjang: cart.length.toString());
                     } else {
                       return ProfileChartPage(
-                          name: '${'ss'}',
-                          jumlahKeranjang: cart.length.toString());
+                          name: 'ss', jumlahKeranjang: cart.length.toString());
                     }
                   }),
                 ],
@@ -151,7 +150,7 @@ class _HomeState extends State<Home> {
               child: Consumer<ProductStoreProvider>(
                   builder: (context, productStoreProvider, child) {
                 final product = productStoreProvider.firstProduct;
-                print('Masuk View 2 : ${product}');
+                print('Masuk View 2 : $product');
                 return Consumer<AuthStoreProvider>(
                     builder: (context, authStoreProvider, child) {
                   final idUser = authStoreProvider.user?.id;

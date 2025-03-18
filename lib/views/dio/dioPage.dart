@@ -15,7 +15,7 @@ class _DiopageState extends State<Diopage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dio'),
+        title: const Text('Dio'),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -23,13 +23,13 @@ class _DiopageState extends State<Diopage> {
           future: DioService().getHttp(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             }
             if (snapshot.hasError) {
               return Center(child: Text('Error: ${snapshot.error}'));
             }
             if (!snapshot.hasData || snapshot.data == null) {
-              return Center(child: Text('No data available'));
+              return const Center(child: Text('No data available'));
             }
 
             final data = snapshot.data; // Cast sesuai dengan tipe data

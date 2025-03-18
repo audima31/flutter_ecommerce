@@ -1,4 +1,3 @@
-import 'package:ecommerce/models/cart.dart';
 import 'package:ecommerce/models/products.dart';
 import 'package:firebase_database/firebase_database.dart';
 

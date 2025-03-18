@@ -1,5 +1,4 @@
 import 'package:ecommerce/models/cart.dart';
-import 'package:ecommerce/models/products.dart';
 import 'package:ecommerce/services/cart_service.dart';
 import 'package:flutter/material.dart';
 
@@ -16,13 +15,14 @@ class CartStoreProvider extends ChangeNotifier {
 
   /// Fungsi untuk mengambil data cart
   Future<void> fetchDataCart({required String idUser}) async {
-    print('Masuk Provider Cart');
+    print('Masuk Provider Cart $cart');
     _isLoading = true;
     notifyListeners();
 
     try {
       _cart = await _cartFirebaseService.fetchDataCart(idUser: idUser);
-// Ganti dengan API Anda
+      notifyListeners();
+      print('Masuk Provider Cart $cart');
     } catch (e) {
       print(e);
     } finally {

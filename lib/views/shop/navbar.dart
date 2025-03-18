@@ -46,9 +46,9 @@ class _NavbarShopState extends State<NavbarShop> {
                 decoration: BoxDecoration(
                     color: Colors.transparent,
                     borderRadius: BorderRadius.circular(50),
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
-                        color: const Color.fromARGB(83, 255, 153, 0),
+                        color: Color.fromARGB(83, 255, 153, 0),
                         blurRadius: 5,
                         offset: Offset(0, 2),
                       ),
@@ -85,7 +85,7 @@ class _NavbarShopState extends State<NavbarShop> {
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
                       fontSize: MediaQuery.of(context).size.width * 0.05,
-                      shadows: [
+                      shadows: const [
                         Shadow(
                           blurRadius: 32,
                           color: Colors.orange,

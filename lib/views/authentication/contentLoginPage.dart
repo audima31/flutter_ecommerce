@@ -99,9 +99,9 @@ class KontenLogin extends StatelessWidget {
                   ),
                   SizedBox(height: constraints.maxHeight * 0.02),
 
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 50),
-                    child: const Text(
+                    child: Text(
                       'Shop anytime, anywhere! Your perfect shoes are just a tap away. Comfort guaranteed!',
                       style: TextStyle(
                         color: Colors.grey,

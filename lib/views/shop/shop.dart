@@ -1,4 +1,5 @@
 import 'package:ecommerce/models/cart.dart';
+import 'package:ecommerce/models/list_wishlist.dart';
 import 'package:ecommerce/models/wishlist.dart';
 import 'package:ecommerce/services/auth_store.dart';
 import 'package:ecommerce/services/auth_service.dart';
@@ -47,6 +48,7 @@ class _ShopPageState extends State<ShopPage> {
   void runFunction() async {
     await fetchUserId();
     await fetchDataWishlist();
+    await fetchDataListWishlist();
   }
 
   Future<void> fetchUserId() async {
@@ -70,24 +72,65 @@ class _ShopPageState extends State<ShopPage> {
     await wishlistStoreProvider.fetchDataWishlist(idUser: widget.idUser!);
   }
 
-  void addToWishlist(data) {
-    debugPrint(
-        'addToWishlist called'); // Tambahkan ini untuk memastikan fungsi dijalankan
+  Future<void> fetchDataListWishlist() async {
+    print('Masuk ListWishlist Func');
+    final listWishlistStoreProvider =
+        Provider.of<WishlistStore>(context, listen: false);
+    await listWishlistStoreProvider.fetchListDataWishlist(
+        idUser: widget.idUser!);
+  }
+
+  void addToWishlist(
+      WishlistModel data, String productBrancd, String productType) {
     if (widget.idUser == null) {
       debugPrint('User not logged in, cannot add to wishlist.');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please log in to add items to your wishlist.'),
+          backgroundColor: Colors.orange,
+        ),
+      );
       return;
-    } else {
-      debugPrint('Masuk User is logged in.');
-
-      final wishlistStoreProvider =
-          Provider.of<WishlistStore>(context, listen: false);
-      wishlistStoreProvider.addDataWishlist(wishlist: data.toMap());
     }
+    final wishlistStoreProvider =
+        Provider.of<WishlistStore>(context, listen: false);
+    wishlistStoreProvider.addDataWishlist(wishlist: data.toMap());
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          '$productBrancd $productType has been added to your wishlist!',
+          style: const TextStyle(fontSize: 16),
+        ),
+        backgroundColor: Colors.green,
+        duration: const Duration(seconds: 2),
+      ),
+    );
+  }
+
+  void deleteDataWishlist(
+      String idWishlist, String productBrancd, String productType) async {
+    final wishlistStoreProvider =
+        Provider.of<WishlistStore>(context, listen: false);
+    wishlistStoreProvider.deleteDataWishlist(idWishlist: idWishlist);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          '$productBrancd $productType has been removed from your wishlist!',
+          style: const TextStyle(fontSize: 16),
+        ),
+        backgroundColor: Colors.red,
+        duration: const Duration(seconds: 2),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    print('Masuk View Shop : ${widget.idUser}');
+    final wishlistProvider = Provider.of<WishlistStore>(context, listen: false);
+
+    final listWishlistProvider =
+        Provider.of<WishlistStore>(context, listen: false);
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(76, 230, 228, 225),
       body: SingleChildScrollView(
@@ -116,43 +159,6 @@ class _ShopPageState extends State<ShopPage> {
                 },
               ),
             ),
-            // SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-            // Padding(
-            //   padding: EdgeInsets.symmetric(
-            //     horizontal: MediaQuery.of(context).size.width * 0.02,
-            //   ),
-            //   child: SizedBox(
-            //     width: MediaQuery.of(context).size.width * 1,
-            //     height: MediaQuery.of(context).size.height * 0.1,
-            //     child: PageView.builder(
-            //       controller: _pageIklanController,
-            //       itemCount: iklanImages.length,
-            //       itemBuilder: (context, index) {
-            //         return Image.asset(
-            //           iklanImages[index],
-            //           width: MediaQuery.of(context).size.width * 1,
-            //           fit: BoxFit.cover,
-            //         );
-            //       },
-            //     ),
-            //   ),
-            // ),
-            // SizedBox(
-            //   height: MediaQuery.of(context).size.height * 0.01,
-            // ),
-            // Center(
-            //   child: SmoothPageIndicator(
-            //     controller: _pageIklanController,
-            //     count: iklanImages.length,
-            //     effect: ExpandingDotsEffect(
-            //       dotColor: const Color.fromARGB(180, 46, 47, 48),
-            //       activeDotColor: Colors.orange,
-            //       dotHeight: MediaQuery.of(context).size.height * 0.01,
-            //       dotWidth: MediaQuery.of(context).size.width * 0.02,
-            //       expansionFactor: 3,
-            //     ),
-            //   ),
-            // )
 
             SizedBox(height: MediaQuery.of(context).size.height * 0.03),
             SizedBox(
@@ -168,7 +174,7 @@ class _ShopPageState extends State<ShopPage> {
                 scrollDirection: Axis.horizontal,
                 child: Wrap(
                   children: List.generate(5, (index) {
-                    return Text('test');
+                    return const Text('test');
                   }),
                 )),
 
@@ -219,7 +225,7 @@ class _ShopPageState extends State<ShopPage> {
                               children: [
                                 Expanded(
                                   child: Image.network(
-                                    '${product.image[0]}',
+                                    product.image[0],
                                     fit: BoxFit.contain,
                                   ),
                                 ),
@@ -285,14 +291,8 @@ class _ShopPageState extends State<ShopPage> {
                         ),
                         Positioned(
                           right: 0,
-                          child: Consumer<WishlistStore>(
-                              builder: (context, wishlistStoreProvider, child) {
-                            return IconButton(
+                          child: IconButton(
                               onPressed: () {
-                                final wishlistStoreProvider =
-                                    Provider.of<WishlistStore>(context,
-                                        listen: false);
-
                                 final data = WishlistModel(
                                   idWishlist:
                                       "${DateTime.now().microsecondsSinceEpoch}-${widget.idUser}",
@@ -310,61 +310,102 @@ class _ShopPageState extends State<ShopPage> {
                                   size: 0,
                                 );
 
-                                final isInWishlist = wishlistStoreProvider
-                                    .wishlist
-                                    .any((wishlistItem) =>
-                                        wishlistItem.idProduct == product.id);
+                                print(
+                                    'Testtt ----------- ${wishlistProvider.wishlist.where((wishlist) => wishlist.idUser == widget.idUser).isNotEmpty}');
+                                // Tambahkan ke wishlist
+                                if (wishlistProvider.wishlist.isEmpty) {
+                                  addToWishlist(
+                                    data,
+                                    product.brand,
+                                    product.type,
+                                  );
+                                } else if
+                                    //Ngecek ada data wishlist atau engga
+                                    (wishlistProvider.wishlist.isNotEmpty) {
+                                  //ngecek data yang ada di wishlist, sudah sesuai dengan idUser belom
+                                  print(
+                                      'Masuk 1 ngecek data yang ada di wishlist ${wishlistProvider.wishlist.isNotEmpty}');
+                                  if (wishlistProvider.wishlist
+                                      .where((wishlist) =>
+                                          wishlist.idUser == widget.idUser)
+                                      .isNotEmpty) {
+                                    //ngecek data yang ada di wishlist, sudah sesuai dengan idProduct belom
+                                    print(
+                                        'Masuk 2 ngecek data yang ada di wishlist ${wishlistProvider.wishlist.where((wishlist) => wishlist.idUser == widget.idUser).isNotEmpty}');
 
-                                if (isInWishlist) {
-                                  // Hapus dari wishlist
-                                  wishlistStoreProvider.deleteDataWishlist(
-                                      idProduct: product.id);
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        '${product.brand} ${product.type} has been removed from your wishlist!',
-                                        style: const TextStyle(fontSize: 16),
-                                      ),
-                                      backgroundColor: Colors.red,
-                                      duration: const Duration(seconds: 2),
-                                    ),
-                                  );
-                                } else {
-                                  // Tambahkan ke wishlist
-                                  addToWishlist(data);
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        '${product.brand} ${product.type} has been added to your wishlist!',
-                                        style: const TextStyle(fontSize: 16),
-                                      ),
-                                      backgroundColor: Colors.green,
-                                      duration: const Duration(seconds: 2),
-                                    ),
-                                  );
+                                    if (wishlistProvider.wishlist
+                                        .where((wishlist) =>
+                                            wishlist.idProduct == product.id)
+                                        .isEmpty) {
+                                      print(
+                                          'Masuk 3 ${wishlistProvider.wishlist.where((wishlist) => wishlist.idProduct == product.id).isEmpty}');
+
+                                      print(
+                                          'Masuk 4 ${wishlistProvider.wishlist.length} - ${wishlistProvider.listWishlist.length}');
+
+                                      //Ngecek data wishlist dan list wishlist, sudah sesuai dengan idProduct belom
+                                      bool hasMatchingIds = wishlistProvider
+                                          .wishlist
+                                          .any((wishlist) => wishlistProvider
+                                              .listWishlist
+                                              .any((listWishlist) =>
+                                                  wishlist.idWishlist ==
+                                                  listWishlist.idListWishlist));
+
+                                      if (hasMatchingIds) {
+                                        print('Masuk 5 $hasMatchingIds');
+                                        addToWishlist(
+                                          data,
+                                          product.brand,
+                                          product.type,
+                                        );
+                                      } else {
+                                        deleteDataWishlist(
+                                          wishlistProvider.listWishlist[index]
+                                              .idListWishlist,
+                                          product.brand,
+                                          product.type,
+                                        );
+                                      }
+                                    } else {
+                                      deleteDataWishlist(
+                                        wishlistProvider
+                                            .listWishlist[index].idListWishlist,
+                                        product.brand,
+                                        product.type,
+                                      );
+                                    }
+                                  } else {
+                                    deleteDataWishlist(
+                                      wishlistProvider
+                                          .listWishlist[index].idListWishlist,
+                                      product.brand,
+                                      product.type,
+                                    );
+                                  }
                                 }
                               },
-                              icon: Consumer<WishlistStore>(
-                                builder:
-                                    (context, wishlistStoreProvider, child) {
-                                  final isInWishlist = wishlistStoreProvider
-                                      .wishlist
-                                      .any((wishlistItem) =>
-                                          wishlistItem.idProduct == product.id);
-
-                                  return Icon(
-                                    isInWishlist
-                                        ? Icons.favorite
-                                        : Icons.favorite_border,
-                                    size: MediaQuery.of(context).size.width *
-                                        0.05,
-                                    color:
-                                        isInWishlist ? Colors.red : Colors.grey,
-                                  );
-                                },
-                              ),
-                            );
-                          }),
+                              icon: wishlistProvider.wishlist.isEmpty
+                                  ? const Icon(
+                                      Icons.favorite_border,
+                                    )
+                                  //Batasan if else cek  wishlist
+                                  : wishlistProvider.wishlist.isNotEmpty
+                                      ? wishlistProvider.wishlist
+                                              .where((wishlist) =>
+                                                  wishlist.idProduct ==
+                                                  product.id)
+                                              .isNotEmpty
+                                          ? const Icon(
+                                              Icons.favorite,
+                                              color: Colors.red,
+                                            )
+                                          : const Icon(
+                                              Icons.favorite_border,
+                                            )
+                                      : const Icon(
+                                          Icons.favorite,
+                                        )),
                         ),
                       ],
                     );

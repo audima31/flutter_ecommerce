@@ -18,8 +18,8 @@ class _RealtimeDatabasePageState extends State<RealtimeDatabasePage> {
       appBar: AppBar(
         title: const Text('Realtime Database'),
       ),
-      body: Column(
-        children: const [
+      body: const Column(
+        children: [
           // Display data here in the future
           Text('Data'),
         ],

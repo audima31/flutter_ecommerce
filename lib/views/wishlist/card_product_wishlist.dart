@@ -21,7 +21,7 @@ class CardProductWishlist extends StatefulWidget {
 class _CardProductWishlistState extends State<CardProductWishlist> {
   final TextEditingController _sizeController = TextEditingController();
 
-  String _setSizeController = '';
+  final String _setSizeController = '';
 
   final List<String> sizes = ['38', '39', '40', '41', '42', '43'];
 
@@ -64,7 +64,7 @@ class _CardProductWishlistState extends State<CardProductWishlist> {
                   ),
                   Expanded(
                     flex: 6,
-                    child: Container(
+                    child: SizedBox(
                       height: MediaQuery.of(context).size.height * 0.25,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,14 +77,14 @@ class _CardProductWishlistState extends State<CardProductWishlist> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    '${widget.brand}',
-                                    style: TextStyle(
+                                    widget.brand,
+                                    style: const TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400,
                                         color: Colors.black),
                                   ),
                                   Text(
-                                    '${widget.type}',
+                                    widget.type,
                                     style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400,
@@ -142,7 +142,7 @@ class _CardProductWishlistState extends State<CardProductWishlist> {
                                     ),
                                   ),
                                   const Spacer(),
-                                  Icon(
+                                  const Icon(
                                     Icons.arrow_drop_down,
                                     color: Colors.black,
                                   ),

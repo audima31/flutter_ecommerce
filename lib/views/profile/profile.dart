@@ -2,6 +2,8 @@ import 'package:ecommerce/models/authentication.dart';
 import 'package:ecommerce/services/auth_service.dart';
 import 'package:ecommerce/services/auth_store.dart';
 import 'package:ecommerce/views/authentication/login.dart';
+import 'package:ecommerce/views/dio/dartzPage.dart';
+import 'package:ecommerce/views/dio/dioPage.dart';
 import 'package:ecommerce/views/profile/card_menus_setting.dart';
 import 'package:ecommerce/views/profile/list_settings.dart';
 import 'package:ecommerce/views/profile/navbarProfile.dart';
@@ -112,6 +114,17 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                       ),
+                      IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const Dartzpage(),
+                            ),
+                          );
+                        },
+                        icon: const Icon(Icons.dialpad),
+                      )
                     ],
                   ),
                 ),

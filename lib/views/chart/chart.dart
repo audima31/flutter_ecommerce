@@ -101,7 +101,7 @@ class _ChartPageState extends State<ChartPage> {
                                   ? NavbarCart(
                                       name: name!,
                                     )
-                                  : NavbarCart(
+                                  : const NavbarCart(
                                       name: 'Loading ...',
                                     ),
                             );
@@ -118,7 +118,7 @@ class _ChartPageState extends State<ChartPage> {
                             }
 
                             if (cartStoreProvider.cart.isEmpty) {
-                              return Text('Kosong');
+                              return const Text('Kosong');
                             }
                             print(
                                 'Masuk Cart ${cartStoreProvider.cart.length}');

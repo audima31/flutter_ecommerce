@@ -104,7 +104,7 @@ class AmountCart extends StatelessWidget {
                 padding: EdgeInsets.symmetric(
                   vertical: MediaQuery.of(context).size.height * 0.01,
                 ),
-                child: Text(
+                child: const Text(
                   'Checkout',
                   style: TextStyle(
                     color: Colors.white,

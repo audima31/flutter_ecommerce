@@ -58,7 +58,7 @@ class _NavbarCartState extends State<NavbarCart> {
                           children: [
                             TextSpan(
                               text: widget.name ?? 'Loading...',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
                               ),

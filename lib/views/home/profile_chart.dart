@@ -22,7 +22,7 @@ class ProfileChartPage extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(50),
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
                         color: Colors.orange,
                         blurRadius: 5,
@@ -39,7 +39,7 @@ class ProfileChartPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '$name',
+                    name,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
@@ -52,7 +52,7 @@ class ProfileChartPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Text(
+                  const Text(
                     'Jakarta Selatan',
                     style: TextStyle(
                       color: Colors.white,
@@ -100,7 +100,7 @@ class ProfileChartPage extends StatelessWidget {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.02,
                   ),
-                  Text('$jumlahKeranjang'),
+                  Text(jumlahKeranjang),
                 ],
               ),
             ),

@@ -23,6 +23,8 @@ class PageTracker extends ChangeNotifier {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -35,6 +37,8 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     context.read<PageTracker>().updatePage('Home'); // Update halaman aktif
@@ -56,6 +60,8 @@ class HomePage extends StatelessWidget {
 }
 
 class DetailsPage extends StatelessWidget {
+  const DetailsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     context.read<PageTracker>().updatePage('Details'); // Update halaman aktif

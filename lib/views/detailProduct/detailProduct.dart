@@ -188,7 +188,7 @@ class _DetailProductState extends State<DetailProduct> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '${product.brand}',
+                              product.brand,
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
@@ -196,7 +196,7 @@ class _DetailProductState extends State<DetailProduct> {
                                       0.055),
                             ),
                             Text(
-                              '${product.type}',
+                              product.type,
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize:
@@ -230,7 +230,7 @@ class _DetailProductState extends State<DetailProduct> {
                         ),
                         SizedBox(
                             width: MediaQuery.of(context).size.width * 0.005),
-                        Icon(
+                        const Icon(
                           Icons.square,
                           color: Colors.red,
                         )
@@ -531,7 +531,7 @@ class _DetailProductState extends State<DetailProduct> {
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.orange),
-                        child: Text(
+                        child: const Text(
                           'Show more',
                           style: TextStyle(
                             color: Colors.white,

@@ -34,7 +34,7 @@ class AuthenticationFirebaseService {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => LoginPage(),
+          builder: (context) => const LoginPage(),
         ),
       );
     } on FirebaseAuthException catch (e) {
@@ -75,7 +75,7 @@ class AuthenticationFirebaseService {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => MyApp(),
+          builder: (context) => const MyApp(),
         ),
       );
     } on FirebaseAuthException catch (e) {
@@ -123,9 +123,9 @@ class AuthenticationFirebaseService {
       print('User ID : ----------${firebaseUser.uid}');
 
       //Jika user sedang login, maka akan mengambil data user dari Firebase Realtime Database
-      final _databaseReference = FirebaseDatabase.instance.ref();
+      final databaseReference = FirebaseDatabase.instance.ref();
       final snapshot =
-          await _databaseReference.child('user/${firebaseUser.uid}').once();
+          await databaseReference.child('user/${firebaseUser.uid}').once();
 
       if (snapshot.snapshot.exists) {
         final data = snapshot.snapshot.value;

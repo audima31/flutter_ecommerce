@@ -58,7 +58,7 @@ class _DartzpageState extends State<Dartzpage> {
     print("Parsed Posts: $_newsData");
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dio with Dartz!'),
+        title: const Text('Dio with Dartz!'),
         centerTitle: true,
       ),
       body: _isLoading
